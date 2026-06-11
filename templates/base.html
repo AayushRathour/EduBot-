@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EduBot{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    {% if messages %}
+    <div id="django-messages" class="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] w-full max-w-md space-y-2 px-4">
+        {% for message in messages %}
+        <div class="flex items-center gap-3 rounded-xl px-5 py-3 shadow-lg text-sm font-medium
+            {% if message.tags == 'success' %}bg-emerald-500 text-white
+            {% elif message.tags == 'error' %}bg-red-500 text-white
+            {% elif message.tags == 'warning' %}bg-amber-400 text-slate-900
+            {% else %}bg-indigo-500 text-white{% endif %}
+            animate__animated animate__fadeInDown">
+            <i class="fas
+                {% if message.tags == 'success' %}fa-check-circle
+                {% elif message.tags == 'error' %}fa-exclamation-circle
+                {% elif message.tags == 'warning' %}fa-triangle-exclamation
+                {% else %}fa-info-circle{% endif %}"></i>
+            <span>{{ message }}</span>
+            <button onclick="this.parentElement.remove()" class="ml-auto opacity-70 hover:opacity-100">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        // Auto-dismiss messages after 4 seconds
+        setTimeout(() => {
+            const msgs = document.getElementById('django-messages');
+            if (msgs) msgs.style.display = 'none';
+        }, 4000);
+    </script>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

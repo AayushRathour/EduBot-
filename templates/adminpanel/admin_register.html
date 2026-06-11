@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBot | Add Admin Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .sidebar { background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; }
+        .nav-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; border-radius: 10px; color: #94a3b8;
+            font-weight: 500; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-link:hover { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+        .nav-link.active { background: rgba(99,102,241,0.25); color: #818cf8; border-left: 3px solid #6366f1; }
+        .form-input {
+            border: 1px solid #e2e8f0; border-radius: 12px;
+            padding: 0.875rem 1rem; width: 100%; font-size: 0.875rem;
+            transition: all 0.2s; outline: none;
+        }
+        .form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+        .error-list { background:#fee2e2; border:1px solid #fca5a5; border-radius:10px; padding:0.75rem 1rem; font-size:0.875rem; color:#dc2626; }
+    </style>
+</head>
+<body class="bg-slate-100">
+
+    {% if messages %}
+    <div style="position:fixed;top:1rem;right:1rem;z-index:9999">
+        {% for message in messages %}
+        <div class="mb-2 px-4 py-3 rounded-xl text-white text-sm font-medium shadow-lg
+            {% if message.tags == 'success' %}bg-emerald-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-indigo-500{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="flex">
+        <aside class="sidebar w-64 fixed top-0 left-0 flex flex-col p-5 z-40">
+            <div class="flex items-center gap-3 mb-10 mt-2">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white"></i>
+                </div>
+                <div>
+                    <span class="text-white font-bold text-lg leading-none">EduBot</span>
+                    <span class="block text-indigo-400 text-xs">Admin Panel</span>
+                </div>
+            </div>
+            <nav class="flex-1 space-y-1">
+                <a href="{% url 'adminpanel:dashboard' %}" class="nav-link"><i class="fas fa-gauge-high w-5"></i> Dashboard</a>
+                <a href="{% url 'adminpanel:user_list' %}" class="nav-link"><i class="fas fa-users w-5"></i> Manage Users</a>
+                <a href="{% url 'adminpanel:admin_register' %}" class="nav-link active"><i class="fas fa-user-shield w-5"></i> Add Admin</a>
+                <a href="{% url 'adminpanel:notification_list' %}" class="nav-link"><i class="fas fa-bullhorn w-5"></i> Notifications</a>
+                <a href="{% url 'core:home' %}" class="nav-link"><i class="fas fa-globe w-5"></i> View Site</a>
+                <a href="/admin/" class="nav-link"><i class="fas fa-tools w-5"></i> Advanced Settings</a>
+            </nav>
+            <div class="mt-auto pt-5 border-t border-slate-700">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                        {{ request.user.username|first|upper }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white text-sm font-medium truncate">{{ request.user.username }}</p>
+                        <p class="text-slate-400 text-xs">Super Admin</p>
+                    </div>
+                </div>
+                <a href="{% url 'adminpanel:admin_logout' %}" class="nav-link text-red-400 hover:bg-red-500/10 hover:text-red-300 w-full">
+                    <i class="fas fa-right-from-bracket w-5"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <main class="ml-64 flex-1 p-8">
+            <div class="mb-6">
+                <a href="{% url 'adminpanel:dashboard' %}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                    <i class="fas fa-arrow-left mr-1"></i> Back to Dashboard
+                </a>
+            </div>
+
+            <div class="max-w-2xl">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-slate-800">Create Admin Account</h1>
+                    <p class="text-slate-500 text-sm mt-1">New admin will have full access to the admin panel.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm p-8">
+                    <div class="flex items-center gap-3 mb-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                        <i class="fas fa-shield-halved text-indigo-600 text-xl"></i>
+                        <div>
+                            <p class="font-medium text-indigo-800 text-sm">Admin Account</p>
+                            <p class="text-indigo-600 text-xs">This account will have superuser privileges.</p>
+                        </div>
+                    </div>
+
+                    {% if form.errors %}
+                    <div class="error-list mb-6">
+                        <p class="font-semibold mb-2"><i class="fas fa-exclamation-triangle mr-1"></i>Please fix these errors:</p>
+                        {% for field, error_list in form.errors.items %}
+                            {% for error in error_list %}<p class="ml-4">• {{ error }}</p>{% endfor %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" class="space-y-5">
+                        {% csrf_token %}
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">First Name</label>
+                                <input type="text" name="first_name" class="form-input"
+                                       placeholder="First name"
+                                       value="{{ form.first_name.value|default_if_none:'' }}">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
+                                <input type="text" name="last_name" class="form-input"
+                                       placeholder="Last name"
+                                       value="{{ form.last_name.value|default_if_none:'' }}">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Username <span class="text-red-500">*</span></label>
+                            <input type="text" name="username" class="form-input"
+                                   placeholder="Admin username" required
+                                   value="{{ form.username.value|default_if_none:'' }}">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Email <span class="text-red-500">*</span></label>
+                            <input type="email" name="email" class="form-input"
+                                   placeholder="admin@example.com" required
+                                   value="{{ form.email.value|default_if_none:'' }}">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Password <span class="text-red-500">*</span></label>
+                                <input type="password" name="password1" class="form-input"
+                                       placeholder="Set password" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Confirm Password <span class="text-red-500">*</span></label>
+                                <input type="password" name="password2" class="form-input"
+                                       placeholder="Repeat password" required>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3 pt-2">
+                            <button type="submit"
+                                class="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
+                                <i class="fas fa-user-shield mr-2"></i>Create Admin Account
+                            </button>
+                            <a href="{% url 'adminpanel:dashboard' %}"
+                               class="px-6 py-3 border border-slate-200 text-slate-700 rounded-xl font-medium hover:bg-slate-50 transition-colors">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

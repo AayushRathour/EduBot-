@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | EduBot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/edubot.css' %}">
+    <style>body{font-family:'Poppins',sans-serif;}</style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+{% include 'core/partials/chatbots.html' %}
+{% include 'core/partials/navbar.html' with active_page='faq' %}
+
+<section class="py-16 bg-white dark:bg-gray-900 min-h-[70vh]">
+    <div class="container mx-auto px-4 max-w-3xl">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-4">Frequently Asked <span class="text-indigo-600">Questions</span></h1>
+            <p class="text-gray-600 dark:text-gray-400">Everything you need to know about the EduBot platform.</p>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                <button class="faq-question w-full text-left px-6 py-4 font-semibold flex justify-between items-center text-slate-800 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-gray-750 transition focus:outline-none">
+                    <span>Is EduBot completely free to use?</span>
+                    <i class="fas fa-chevron-down text-indigo-500 transition-transform"></i>
+                </button>
+                <div class="px-6 py-4 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hidden">
+                    <p>Yes, the core AI assistant and basic learning resources are completely free for all students. We also offer a premium tier for university-wide deployments that includes advanced analytics and priority live support.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                <button class="faq-question w-full text-left px-6 py-4 font-semibold flex justify-between items-center text-slate-800 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-gray-750 transition focus:outline-none">
+                    <span>What subjects does EduBot cover?</span>
+                    <i class="fas fa-chevron-down text-indigo-500 transition-transform"></i>
+                </button>
+                <div class="px-6 py-4 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hidden">
+                    <p>EduBot specializes in technical education, covering Computer Science, Electrical, Mechanical, Civil, Electronics, and Biotechnology. It can help with mathematics, physics, programming, engineering principles, and core theoretical concepts.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                <button class="faq-question w-full text-left px-6 py-4 font-semibold flex justify-between items-center text-slate-800 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-gray-750 transition focus:outline-none">
+                    <span>How does the Live Support feature work?</span>
+                    <i class="fas fa-chevron-down text-indigo-500 transition-transform"></i>
+                </button>
+                <div class="px-6 py-4 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hidden">
+                    <p>If the AI cannot resolve your query, you can escalate it to Live Support. This connects you to a real human tutor or faculty member who specializes in your subject area. They are available during designated support hours.</p>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                <button class="faq-question w-full text-left px-6 py-4 font-semibold flex justify-between items-center text-slate-800 dark:text-slate-200 hover:bg-gray-100 dark:hover:bg-gray-750 transition focus:outline-none">
+                    <span>Which languages are supported?</span>
+                    <i class="fas fa-chevron-down text-indigo-500 transition-transform"></i>
+                </button>
+                <div class="px-6 py-4 text-gray-600 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hidden">
+                    <p>EduBot currently supports English natively, along with translation support for Hindi, Tamil, Telugu, Malayalam, and Bengali to help students understand complex technical concepts in their mother tongue.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'core/partials/footer.html' %}
+<script src="{% static 'js/edubot.js' %}"></script>
+</body>
+</html>

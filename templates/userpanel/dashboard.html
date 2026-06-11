@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBot | My Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .sidebar { background: linear-gradient(180deg, #0f172a 0%, #064e3b 100%); min-height: 100vh; }
+        .nav-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem; border-radius: 10px; color: #94a3b8;
+            font-weight: 500; transition: all 0.2s; text-decoration: none;
+        }
+        .nav-link:hover { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+        .nav-link.active { background: rgba(16,185,129,0.25); color: #34d399; border-left: 3px solid #10b981; }
+        .stat-card {
+            border-radius: 16px; padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    {% if messages %}
+    <div style="position:fixed;top:1rem;right:1rem;z-index:9999">
+        {% for message in messages %}
+        <div class="mb-2 px-4 py-3 rounded-xl text-white text-sm font-medium shadow-lg
+            {% if message.tags == 'success' %}bg-emerald-500{% elif message.tags == 'error' %}bg-red-500{% else %}bg-indigo-500{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    <script>setTimeout(()=>{ const els=document.querySelectorAll('[style*="position:fixed"]'); els.forEach(el=>el.style.display='none'); },4000);</script>
+    {% endif %}
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="sidebar w-64 fixed top-0 left-0 flex flex-col p-5 z-40">
+            <div class="flex items-center gap-3 mb-10 mt-2">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white"></i>
+                </div>
+                <div>
+                    <span class="text-white font-bold text-lg leading-none">EduBot</span>
+                    <span class="block text-emerald-400 text-xs">My Dashboard</span>
+                </div>
+            </div>
+
+            <nav class="flex-1 space-y-1">
+                <a href="{% url 'userpanel:dashboard' %}" class="nav-link active">
+                    <i class="fas fa-gauge-high w-5"></i> Dashboard
+                </a>
+                <a href="{% url 'userpanel:profile' %}" class="nav-link">
+                    <i class="fas fa-user-circle w-5"></i> My Profile
+                </a>
+                <a href="{% url 'core:home' %}" class="nav-link">
+                    <i class="fas fa-home w-5"></i> Home Page
+                </a>
+            </nav>
+
+            <div class="mt-auto pt-5 border-t border-slate-700">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                        {{ user.username|first|upper }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white text-sm font-medium truncate">{{ user.username }}</p>
+                        <p class="text-slate-400 text-xs">Student</p>
+                    </div>
+                </div>
+                <a href="{% url 'accounts:logout' %}" class="nav-link text-red-400 hover:bg-red-500/10 hover:text-red-300 w-full">
+                    <i class="fas fa-right-from-bracket w-5"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="ml-64 flex-1 p-8">
+            <!-- Welcome Header -->
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl p-8 mb-8 text-white shadow-lg">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">
+                        {{ user.username|first|upper }}
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Welcome back, {{ full_name }}! 👋</h1>
+                        <p class="text-emerald-100">Ready to continue learning today?</p>
+                    </div>
+                    <div class="ml-auto text-right">
+                        <p class="text-emerald-200 text-sm">Member since</p>
+                        <p class="font-semibold">{{ member_since|date:"M Y" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="stat-card bg-white shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-book-open text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-slate-800">0</p>
+                            <p class="text-slate-400 text-sm">Courses Enrolled</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-400">
+                        <i class="fas fa-info-circle mr-1 text-indigo-400"></i>
+                        Course feature coming soon
+                    </div>
+                </div>
+
+                <div class="stat-card bg-white shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-trophy text-emerald-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-slate-800">0</p>
+                            <p class="text-slate-400 text-sm">Achievements</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-400">
+                        <i class="fas fa-info-circle mr-1 text-emerald-400"></i>
+                        Complete courses to earn badges
+                    </div>
+                </div>
+
+                <div class="stat-card bg-white shadow-sm border border-slate-100">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-robot text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-slate-800">0</p>
+                            <p class="text-slate-400 text-sm">AI Chats</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 rounded-lg p-3 text-xs text-slate-400">
+                        <i class="fas fa-info-circle mr-1 text-purple-400"></i>
+                        AI assistant coming soon
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Info + Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Account Info -->
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-4">
+                        <i class="fas fa-user-circle text-emerald-500 mr-2"></i>Account Info
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 py-3 border-b border-slate-50">
+                            <i class="fas fa-user w-5 text-slate-400"></i>
+                            <div>
+                                <p class="text-xs text-slate-400">Username</p>
+                                <p class="font-medium text-slate-800">{{ user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 py-3 border-b border-slate-50">
+                            <i class="fas fa-envelope w-5 text-slate-400"></i>
+                            <div>
+                                <p class="text-xs text-slate-400">Email</p>
+                                <p class="font-medium text-slate-800">{{ user.email|default:"Not set" }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 py-3 border-b border-slate-50">
+                            <i class="fas fa-id-card w-5 text-slate-400"></i>
+                            <div>
+                                <p class="text-xs text-slate-400">Full Name</p>
+                                <p class="font-medium text-slate-800">{{ user.get_full_name|default:"Not set" }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 py-3">
+                            <i class="fas fa-calendar w-5 text-slate-400"></i>
+                            <div>
+                                <p class="text-xs text-slate-400">Joined</p>
+                                <p class="font-medium text-slate-800">{{ member_since|date:"F j, Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'userpanel:profile' %}"
+                       class="mt-4 inline-flex items-center gap-2 text-sm text-emerald-600 font-medium hover:text-emerald-800">
+                        <i class="fas fa-pen"></i> Edit Profile
+                    </a>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <h2 class="text-lg font-semibold text-slate-800 mb-4">
+                        <i class="fas fa-bolt text-amber-500 mr-2"></i>Quick Actions
+                    </h2>
+                    <div class="space-y-3">
+                        <a href="{% url 'userpanel:profile' %}"
+                           class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl hover:bg-indigo-50 hover:border-indigo-200 border border-transparent transition-all group">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center group-hover:bg-indigo-500 transition-colors">
+                                <i class="fas fa-user-pen text-indigo-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800 text-sm">Edit Profile</p>
+                                <p class="text-slate-400 text-xs">Update your personal information</p>
+                            </div>
+                            <i class="fas fa-chevron-right ml-auto text-slate-300 group-hover:text-indigo-500 transition-colors"></i>
+                        </a>
+
+                        <a href="{% url 'core:home' %}"
+                           class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl hover:bg-emerald-50 hover:border-emerald-200 border border-transparent transition-all group">
+                            <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center group-hover:bg-emerald-500 transition-colors">
+                                <i class="fas fa-home text-emerald-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800 text-sm">Visit Home</p>
+                                <p class="text-slate-400 text-xs">Go back to the main site</p>
+                            </div>
+                            <i class="fas fa-chevron-right ml-auto text-slate-300 group-hover:text-emerald-500 transition-colors"></i>
+                        </a>
+
+                        <a href="{% url 'accounts:logout' %}"
+                           class="flex items-center gap-3 p-4 bg-slate-50 rounded-xl hover:bg-red-50 hover:border-red-200 border border-transparent transition-all group">
+                            <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center group-hover:bg-red-500 transition-colors">
+                                <i class="fas fa-right-from-bracket text-red-500 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800 text-sm">Logout</p>
+                                <p class="text-slate-400 text-xs">Sign out of your account</p>
+                            </div>
+                            <i class="fas fa-chevron-right ml-auto text-slate-300 group-hover:text-red-500 transition-colors"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

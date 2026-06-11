@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap | EduBot</title>
+    <meta name="description" content="EduBot's development roadmap — from planning to deployment and beyond.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/edubot.css' %}">
+    <style>body{font-family:'Poppins',sans-serif;}</style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+{% include 'core/partials/chatbots.html' %}
+{% include 'core/partials/navbar.html' with active_page='roadmap' %}
+
+<!-- Hero -->
+<section class="py-16 bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-600 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 right-10 w-64 h-64 rounded-full bg-white animate-pulse"></div>
+    </div>
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1 text-sm font-medium mb-4">
+            <i class="fas fa-map text-yellow-300"></i> Development Roadmap
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Strategic Plan</h1>
+        <p class="text-xl text-indigo-200 max-w-2xl mx-auto">Follow our journey from research to a fully-deployed AI learning companion.</p>
+    </div>
+</section>
+
+<!-- Roadmap Timeline -->
+<section class="py-16 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="relative">
+            <!-- Vertical line -->
+            <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-400 to-purple-400 hidden md:block"></div>
+
+            <div class="space-y-10">
+                <!-- Phase 1 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">1</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-indigo-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-indigo-700 dark:text-indigo-300">Planning & Research</h3>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">✅ Complete</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Define project objectives and scope</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Conduct user surveys and interviews</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Research existing educational AI solutions</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Assemble cross-functional team</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">2</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-emerald-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-emerald-700 dark:text-emerald-300">Design & Architecture</h3>
+                            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">✅ Complete</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Select tech stack (Django + SQLite)</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Design conversation flows & UI</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Plan database schema</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Plan for scalability and integration</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-violet-700 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">3</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-purple-700 dark:text-purple-300">Development</h3>
+                            <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-medium">🔄 In Progress</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Build Django backend + auth system</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Implement chatbot NLP capabilities</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> Develop admin & user dashboards</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-spinner fa-spin text-yellow-500"></i> Integrate real AI model (coming soon)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">4</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-orange-400">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-orange-700 dark:text-orange-300">Testing</h3>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">⏳ Upcoming</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Unit and integration testing</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> User acceptance testing</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Accessibility & performance testing</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Security and penetration testing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">5</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-pink-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-pink-700 dark:text-pink-300">Deployment</h3>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">⏳ Upcoming</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Multi-platform launch (web, mobile)</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Performance monitoring setup</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> User support channels</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Initial user onboarding</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 6 -->
+                <div class="slide-up relative flex gap-6 md:gap-10">
+                    <div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-bold text-xl shadow-lg z-10">6</div>
+                    <div class="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border-l-4 border-blue-500">
+                        <div class="flex items-center gap-3 mb-3">
+                            <h3 class="text-xl font-bold text-blue-700 dark:text-blue-300">Maintenance & Growth</h3>
+                            <span class="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full font-medium">⏳ Ongoing</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-600 dark:text-gray-400 text-sm">
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Regular knowledge base updates</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Implement user feedback loops</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Security and compliance updates</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-circle text-gray-300"></i> Feature enhancements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'core/partials/footer.html' %}
+<script src="{% static 'js/edubot.js' %}"></script>
+</body>
+</html>
