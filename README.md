@@ -51,9 +51,9 @@ Replit will start the server automatically using Gunicorn.
 
 | Field | Value |
 |---|---|
-| URL | `/edu-admin/login/` |
-| Username | `admin` |
-| Password | `Admin@123` |
+| URL |  |
+| Username |  |
+| Password |  |
 
 > ⚠️ Change the password immediately after first login in production!
 
