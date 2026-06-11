@@ -2,17 +2,30 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
 
 # Django
 db.sqlite3
 media/
 staticfiles/
 
+# Environment / Secrets
+.env
+*.env
+
 # Virtual Environment
 venv/
 env/
 ENV/
+.venv/
 
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# PDFs and large binary assets (optional — remove if you want them in git)
+*.pdf

@@ -1,0 +1,17 @@
+modules = ["python-3.11"]
+run = "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+
+hidden = [".pythonlibs", "staticfiles", "__pycache__", "*.pyc"]
+
+[nix]
+channel = "stable-23_11"
+
+[unitTest]
+language = "python3"
+
+[deployment]
+run = ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"]
+deploymentTarget = "cloudrun"
+
+[env]
+PYTHONUNBUFFERED = "1"
